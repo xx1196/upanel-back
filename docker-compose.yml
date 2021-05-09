@@ -1,0 +1,68 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: xx1196
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: upanel-api
+    container_name: upanel-api-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - upanel-api
+
+  postgres:
+    image: postgres:13
+    container_name: upanel-api-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - 5432:5432
+    networks:
+      - upanel-api
+
+  nginx:
+    image: nginx:alpine
+    container_name: upanel-api-nginx
+    restart: unless-stopped
+    ports:
+      - 80:80
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - upanel-api
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: upanel-api-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${DB_PGSQL_ADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${DB_PGSQL_ADMIN_PASSWORD}
+    volumes:
+      - ./configs/servers.json:/pgadmin4/servers.json
+    networks:
+      - upanel-api
+    ports:
+      - 81:80
+    depends_on:
+      - postgres
+
+  redis:
+    image: redis:6.2.3-alpine
+    container_name: upanel-api-redis
+    ports:
+      - 6382:6379
+    networks:
+      - upanel-api
+networks:
+  upanel-api:
+    driver: bridge
