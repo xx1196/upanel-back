@@ -6,7 +6,11 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 type Query {
     users: [User!]! @guard(with: ["api"]) @paginate(type: "paginator" model: "App\\Models\\User")
     user(id: ID @eq): User @find(model: "App\\Models\\User")
+
+    categories: [Category!]! @guard(with: ["api"]) @paginate(type: "paginator" model: "App\\Models\\Category")
+    category(id: ID @eq): Category @guard(with: ["api"]) @find(model: "App\\Models\\Category")
 }
+
 
 type Mutation {
     login(input: LoginInput @spread): AuthPayload! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\Login@resolve")
@@ -18,4 +22,8 @@ type Mutation {
     socialLogin(input: SocialLoginInput! @spread): AuthPayload! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\SocialLogin@resolve")
     verifyEmail(input: VerifyEmailInput! @spread): AuthPayload! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\VerifyEmail@resolve")
     updatePassword(input: UpdatePassword! @spread): UpdatePasswordResponse! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\UpdatePassword@resolve") @guard(with: ["api"])
+
+    createCategory(input: CategoryCreateInput!): Category @guard(with: ["api"]) @create
+    updateCategory(id: ID!, input: CategoryUpdateInput! @spread): Category @update
 }
+#import category.graphql
