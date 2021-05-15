@@ -3,22 +3,29 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 "A date string with format `Y-m-d`, e.g. `2011-05-23`."
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 
-type Category {
+type Product {
     id: ID!
     name: String!
     description: String!
-    products: [Product!]! @belongsToMany
+    price: Float!
+    categories: [Category!]! @belongsToMany
     created_at: DateTime!
     updated_at: DateTime!
 }
 
-input CategoryCreateInput {
+input ProductCreateInput {
+    code: String! @rules(apply: ["required", "min:1", "max:200","unique:products,code"])
     name: String! @rules(apply: ["required", "max:200"])
-    description: String! @rules(apply: ["required", "max:500"])
+    description: String @rules(apply: ["max:500"])
+    price: Float! @rules(apply: ["required", "min:1"])
+    categories: [String!]! @rules(apply: ["required","max:500"])
 }
 
-input CategoryUpdateInput {
+input ProductUpdateInput {
+    code: String! @rules(apply: ["min:1", "max:200","unique:products,code"])
     name: String @rules(apply: ["max:200"])
     description: String @rules(apply: ["max:500"])
+    price: Float @rules(apply: ["min:1"])
+    categories: [String!] @rules(apply: ["max:500"])
 }
 
