@@ -7,12 +7,12 @@ type Query {
     users: [User!]! @guard(with: ["api"]) @paginate(type: "paginator" model: "App\\Models\\User")
     user(id: ID @eq): User @find(model: "App\\Models\\User")
 
-    categories: [Category!]! @guard(with: ["api"]) @paginate(type: "paginator" model: "App\\Models\\Category")
-    category(id: ID @eq): Category @guard(with: ["api"]) @find(model: "App\\Models\\Category")
+    categories: [Category!]! @guard(with: ["api"]) @paginate(type: "paginator" model: "App\\Models\\Category") @can(ability: "index")
+    category(id: ID @eq): Category @guard(with: ["api"]) @find(model: "App\\Models\\Category") @can(ability: "show")
 
-    products: [Product!]! @guard(with: ["api"]) @paginate(type: "paginator" model: "App\\Models\\Product")
-    product(id: ID @eq): Product @guard(with: ["api"]) @find(model: "App\\Models\\Product")
-    deleteProduct(id: ID!): Product! @delete
+    products: [Product!]! @guard(with: ["api"]) @paginate(type: "paginator" model: "App\\Models\\Product") @can(ability: "index")
+    product(id: ID @eq): Product @guard(with: ["api"]) @find(model: "App\\Models\\Product") @can(ability: "show")
+    deleteProduct(id: ID!): Product! @can(ability: "delete") @delete
 }
 
 
@@ -27,10 +27,11 @@ type Mutation {
     verifyEmail(input: VerifyEmailInput! @spread): AuthPayload! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\VerifyEmail@resolve")
     updatePassword(input: UpdatePassword! @spread): UpdatePasswordResponse! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\UpdatePassword@resolve") @guard(with: ["api"])
 
-    createCategory(input: CategoryCreateInput!): Category @guard(with: ["api"]) @create
-    updateCategory(id: ID!, input: CategoryUpdateInput! @spread): Category @guard(with: ["api"]) @update
+    createCategory(input: CategoryCreateInput!): Category @guard(with: ["api"]) @can(ability: "store")
+    updateCategory(id: ID!, input: CategoryUpdateInput!): Category @guard(with: ["api"]) @can(ability: "update")
 
-    createProduct(input: ProductCreateInput!): Product @guard(with: ["api"])
+    createProduct(input: ProductCreateInput!): Product @guard(with: ["api"]) @can(ability: "store")
+    updateProduct(id: ID!, input: ProductUpdateInput!): Product @guard(with: ["api"]) @can(ability: "update")
 }
 
 #import category.graphql

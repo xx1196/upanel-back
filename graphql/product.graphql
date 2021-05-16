@@ -22,7 +22,7 @@ input ProductCreateInput {
 }
 
 input ProductUpdateInput {
-    code: String! @rules(apply: ["min:1", "max:200","unique:products,code"])
+    code: String @rules(apply: ["min:1", "max:200","unique:products,code"])
     name: String @rules(apply: ["max:200"])
     description: String @rules(apply: ["max:500"])
     price: Float @rules(apply: ["min:1"])
