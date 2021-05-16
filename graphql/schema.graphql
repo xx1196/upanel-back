@@ -12,6 +12,7 @@ type Query {
 
     products: [Product!]! @guard(with: ["api"]) @paginate(type: "paginator" model: "App\\Models\\Product")
     product(id: ID @eq): Product @guard(with: ["api"]) @find(model: "App\\Models\\Product")
+    deleteProduct(id: ID!): Product! @delete
 }
 
 

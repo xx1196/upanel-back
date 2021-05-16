@@ -18,6 +18,8 @@ class Product extends Model
         'price'
     ];
 
+    protected $dates = ['deleted_at'];
+
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class)->withTimestamps();
