@@ -13,6 +13,8 @@ type Query {
     products: [Product!]! @guard(with: ["api"]) @paginate(type: "paginator" model: "App\\Models\\Product") @can(ability: "index")
     product(id: ID @eq): Product @guard(with: ["api"]) @find(model: "App\\Models\\Product") @can(ability: "show")
     deleteProduct(id: ID!): Product! @can(ability: "delete") @delete
+
+    me: Me! @guard(with: ["api"])
 }
 
 

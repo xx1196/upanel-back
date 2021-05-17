@@ -50,6 +50,16 @@ type UpdatePasswordResponse {
     message: String
 }
 
+type Permissions {
+    id: String!
+    name: String!
+}
+
+type Me {
+    user: User!
+    permissions: [Permissions!]!
+}
+
 enum RegisterStatuses {
     MUST_VERIFY_EMAIL
     SUCCESS
