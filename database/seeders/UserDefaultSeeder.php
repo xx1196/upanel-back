@@ -23,6 +23,24 @@ class UserDefaultSeeder extends Seeder
                 'password' => Hash::make('secret')
             ]);
 
+        $userSeller = User::firstOrCreate(
+            ['email' => 'user@seller.com'],
+
+            [
+                'name' => 'User seller',
+                'password' => Hash::make('secret')
+            ]);
+
+        $userGrocer = User::firstOrCreate(
+            ['email' => 'user@grocer.com'],
+
+            [
+                'name' => 'User grocer',
+                'password' => Hash::make('secret')
+            ]);
+
         $userAdmin->assignRole('admin');
+        $userSeller->assignRole('seller');
+        $userGrocer->assignRole('grocer');
     }
 }
