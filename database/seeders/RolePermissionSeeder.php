@@ -40,8 +40,8 @@ class RolePermissionSeeder extends Seeder
         ];
 
         $permissionsSellers = [
-            'Sales.index',
-            'Sales.store',
+            'sales.index',
+            'sales.store',
         ];
 
 
