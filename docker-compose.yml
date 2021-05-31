@@ -26,6 +26,24 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - 5432:5432
+    depends_on:
+      - app
+    networks:
+      - upanel-api
+
+  postgres_test:
+    image: postgres:13
+    container_name: upanel-api-postgres-test
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_TEST_DATABASE}
+      POSTGRES_USER: ${DB_TEST_USERNAME}
+      POSTGRES_PASSWORD: ${DB_TEST_PASSWORD}
+    ports:
+      - 5433:5432
+    depends_on:
+      - app
+      - postgres
     networks:
       - upanel-api
 
@@ -55,12 +73,15 @@ services:
       - 81:80
     depends_on:
       - postgres
+      - postgres_test
 
   redis:
     image: redis:6.2.3-alpine
     container_name: upanel-api-redis
     ports:
       - 6382:6379
+    depends_on:
+      - app
     networks:
       - upanel-api
 networks:
