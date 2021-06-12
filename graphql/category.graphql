@@ -18,7 +18,7 @@ input CategoryCreateInput {
 }
 
 input CategoryUpdateInput {
-    name: String @rules(apply: ["max:200"])
-    description: String @rules(apply: ["max:500"])
+    name: String @rules(apply: ["required", "max:200"])
+    description: String @rules(apply: ["required", "max:200"])
 }
 
