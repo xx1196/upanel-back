@@ -18,7 +18,7 @@ input ProductCreateInput {
     name: String! @rules(apply: ["required", "max:200"])
     description: String @rules(apply: ["max:500"])
     price: Float! @rules(apply: ["required", "min:1"])
-    categories: [String!]! @rules(apply: ["required","max:500"])
+    categories: [ID!]! @rules(apply: ["required","max:500"])
 }
 
 input ProductUpdateInput {
