@@ -9,6 +9,7 @@ type Query {
 
     categories: [Category!]! @guard(with: ["api"]) @paginate(type: "paginator" model: "App\\Models\\Category") @can(ability: "index")
     category(id: ID @eq): Category @guard(with: ["api"]) @find(model: "App\\Models\\Category") @can(ability: "show")
+    deleteCategory(id: ID!): Category @can(ability: "delete") @delete
 
     products: [Product!]! @guard(with: ["api"]) @paginate(type: "paginator" model: "App\\Models\\Product") @can(ability: "index")
     product(id: ID @eq): Product @guard(with: ["api"]) @find(model: "App\\Models\\Product") @can(ability: "show")
