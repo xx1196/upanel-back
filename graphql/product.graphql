@@ -5,6 +5,7 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 
 type Product {
     id: ID!
+    code: String!
     name: String!
     description: String!
     price: Float!
