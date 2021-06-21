@@ -8,7 +8,7 @@ type Query {
     user(id: ID @eq): User @find(model: "App\\Models\\User")
 
     categories: [Category!]! @guard(with: ["api"]) @paginate(type: "paginator" model: "App\\Models\\Category") @can(ability: "index")
-    allCategories: [Category!]! @guard(with: ["api"]) @can(ability: "index")
+    allCategories: [Category!]! @guard(with: ["api"]) @can(ability: "index") @all
     category(id: ID @eq): Category @guard(with: ["api"]) @find(model: "App\\Models\\Category") @can(ability: "show")
     deleteCategory(id: ID!): Category @can(ability: "delete") @delete
 
