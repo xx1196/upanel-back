@@ -10,6 +10,7 @@ input RefreshTokenInput {
 type User {
     id: ID!
     name: String!
+    avatar: String!
     email: String!
     created_at: DateTime!
     updated_at: DateTime!
