@@ -58,6 +58,12 @@ class User extends Authenticatable
         return $this->hasMany(SocialProvider::class);
     }
 
+    public function getAvatarAttribute($avatar)
+    {
+        $name = Str::replace(' ', '+', $this->name);
+        return $avatar ? $avatar : "https://ui-avatars.com/api/?name=${name}&bold=true";
+    }
+
     /**
      * @param Request $request
      *
