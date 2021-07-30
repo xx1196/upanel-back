@@ -1,6 +1,16 @@
 input LoginInput {
-    username: String!
-    password: String!
+    username: String!@rules(apply: ["required"], attribute: "email", messages: [
+        {
+            rule: "required"
+            message: "The :attribute is required"
+        }
+    ])
+    password: String!@rules(apply: ["required"], attribute: "password", messages: [
+        {
+            rule: "required"
+            message: "The :attribute is required"
+        }
+    ])
 }
 
 input RefreshTokenInput {
