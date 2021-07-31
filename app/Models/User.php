@@ -22,6 +22,13 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens, HasRoles, HasSocialLogin;
 
+    const TYPE_DOCS = [
+        'CC',
+        'NIT',
+        'RUT',
+        'PASSPORT',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -32,6 +39,11 @@ class User extends Authenticatable
         'avatar',
         'email',
         'password',
+        'telephone',
+        'type_doc',
+        'number_doc',
+        'debit',
+        'debit_threshold'
     ];
 
     /**

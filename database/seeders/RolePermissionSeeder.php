@@ -20,7 +20,9 @@ class RolePermissionSeeder extends Seeder
         $roles = [
             'admin',
             'seller',
-            'grocer'
+            'grocer',
+            'client',
+            'provider',
         ];
 
         $permissionsCategories = [
@@ -29,6 +31,8 @@ class RolePermissionSeeder extends Seeder
             'categories.store',
             'categories.update',
             'categories.delete',
+            'providers.index',
+            'providers.store',
         ];
 
         $permissionsProducts = [
@@ -42,6 +46,8 @@ class RolePermissionSeeder extends Seeder
         $permissionsSellers = [
             'sales.index',
             'sales.store',
+            'clients.index',
+            'clients.store',
         ];
 
 

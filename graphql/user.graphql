@@ -1,0 +1,66 @@
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-01-01 13:00:00`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+type User {
+    id: ID
+    name: String!
+    email: String!
+    type_doc: String!
+    number_doc: String!
+    telephone: String
+    debit: Float
+    debit_threshold: Float
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+enum QueryUserWhereColumn {
+    NAME @enum(value: "name")
+    EMAIL @enum(value: "email")
+    TELEPHONE @enum(value: "telephone")
+    TYPE_DOC @enum(value: "type_doc")
+    NUMBER_DOC @enum(value: "number_doc")
+    NAME_ROLE @enum(value: "name")
+    DEBIT @enum(value: "debit")
+    DEBIT_THRESHOLD @enum(value: "debit_threshold")
+}
+
+input QueryUserWhereWhereConditions {
+    "The column that is used for the condition."
+    column: QueryUserWhereColumn
+
+    "The operator that is used for the condition."
+    operator: SQLOperator = EQ
+
+    "The value that is used for the condition."
+    value: Mixed
+
+    "A set of conditions that requires all conditions to match."
+    AND: [QueryUserWhereWhereConditions!]
+
+    "A set of conditions that requires at least one condition to match."
+    OR: [QueryUserWhereWhereConditions!]
+
+    "Check whether a relation exists. Extra conditions or a minimum amount can be applied."
+    HAS: QueryUseWhereConditionsRelation
+}
+
+"Dynamic HAS conditions for WHERE condition queries."
+input QueryUseWhereConditionsRelation {
+    "The relation that is checked."
+    relation: String!
+
+    "The comparison operator to test against the amount."
+    operator: SQLOperator = GTE
+
+    "The amount to test."
+    amount: Int = 1
+
+    "Additional condition logic."
+    condition: QueryUserWhereWhereConditions
+}
+
+enum QueryUserHasRoleColumn {
+    ROLE @enum(value: "role")
+    ACCESS_LEVEL @enum(value: "access_level")
+}

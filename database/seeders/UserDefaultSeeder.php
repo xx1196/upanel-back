@@ -20,7 +20,10 @@ class UserDefaultSeeder extends Seeder
 
             [
                 'name' => 'User admin',
-                'password' => Hash::make('secret')
+                'password' => Hash::make('secret'),
+                'number_doc' => 1,
+                'debit' => 123123,
+                'debit_threshold' => 1000000,
             ]);
 
         $userSeller = User::firstOrCreate(
@@ -28,7 +31,10 @@ class UserDefaultSeeder extends Seeder
 
             [
                 'name' => 'User seller',
-                'password' => Hash::make('secret')
+                'password' => Hash::make('secret'),
+                'number_doc' => 2334343,
+                'debit' => 123123,
+                'debit_threshold' => 1000000,
             ]);
 
         $userGrocer = User::firstOrCreate(
@@ -36,7 +42,10 @@ class UserDefaultSeeder extends Seeder
 
             [
                 'name' => 'User grocer',
-                'password' => Hash::make('secret')
+                'password' => Hash::make('secret'),
+                'number_doc' => 23,
+                'debit' => 123123,
+                'debit_threshold' => 1000000,
             ]);
 
         $userAdmin->assignRole('admin');

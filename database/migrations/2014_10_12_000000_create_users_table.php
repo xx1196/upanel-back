@@ -17,6 +17,11 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('telephone')->nullable();
+            $table->enum('type_doc', \App\Models\User::TYPE_DOCS)->default(\App\Models\User::TYPE_DOCS[0]);
+            $table->string('number_doc')->unique();
+            $table->float('debit', 10)->nullable();
+            $table->float('debit_threshold', 10)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
